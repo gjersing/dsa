@@ -14579,7 +14579,8 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h1 id="Data-Structures-And-Algorithms-Study-(Python)">Data Structures And Algorithms Study (Python)<a class="anchor-link" href="#Data-Structures-And-Algorithms-Study-(Python)">&#182;</a></h1><h4 id="Utilizing-https://www.techinterviewhandbook.org/algorithms/study-cheatsheet/">Utilizing <a href="https://www.techinterviewhandbook.org/algorithms/study-cheatsheet/">https://www.techinterviewhandbook.org/algorithms/study-cheatsheet/</a><a class="anchor-link" href="#Utilizing-https://www.techinterviewhandbook.org/algorithms/study-cheatsheet/">&#182;</a></h4><p>Entries arranged in priority order (High -&gt; Mid -&gt; Low)</p>
+<h1 id="Data-Structures-And-Algorithms-Study-(Python)">Data Structures And Algorithms Study (Python)<a class="anchor-link" href="#Data-Structures-And-Algorithms-Study-(Python)">&#182;</a></h1><h4 id="Utilizing-https://www.techinterviewhandbook.org/algorithms/study-cheatsheet/">Utilizing <a href="https://www.techinterviewhandbook.org/algorithms/study-cheatsheet/">https://www.techinterviewhandbook.org/algorithms/study-cheatsheet/</a><a class="anchor-link" href="#Utilizing-https://www.techinterviewhandbook.org/algorithms/study-cheatsheet/">&#182;</a></h4><p>Entries arranged in priority order (High -&gt; Mid -&gt; Low) <br>
+python -m notebook to open</p>
 
 </div>
 </div>
@@ -14900,25 +14901,123 @@ Transposed 4x3: [(1, -5, -7), (4, 8, 1), (5, 9, 2), (6, 3, 0)]
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <hr>
-<h1 id="Tree">Tree<a class="anchor-link" href="#Tree">&#182;</a></h1><p><a href="https://www.techinterviewhandbook.org/algorithms/tree/">https://www.techinterviewhandbook.org/algorithms/tree/</a> <br><br></p>
+<h1 id="Tree">Tree<a class="anchor-link" href="#Tree">&#182;</a></h1><p><a href="https://www.techinterviewhandbook.org/algorithms/tree/">https://www.techinterviewhandbook.org/algorithms/tree/</a> <br><br>
+A tree is an undirected and connected acyclic graph. There are no cycles or loops. Each node can be like the root node of its own subtree, making recursion a useful technique for tree traversal. <br>
+Questions usually BINARY trees as opposed to ternary (3 children) or N-ary (N children) trees. <br><br>
+<b>Complete</b> binary tree - every level, except possibly the last, is completely filled, and all nodes in the last level are as far left as possible. <br>
+<b>Balanced</b> binary tree - the left and right subtrees of every node differ in height by no more than 1. <br><br></p>
+<p><b>Traversals</b> <br>
+<b>In-order:</b> Left -&gt; Root -&gt; Right [INSUFFICIENT to uniquely serialize a tree. Additionally need pre or post order]<br>
+<b>Pre-order:</b> Root -&gt; Left -&gt; Right <br>
+<b>Post-order:</b> Left -&gt; Right -&gt; Root</p>
+<h5 id="Binary-Search-Tree-(BST)">Binary Search Tree (BST)<a class="anchor-link" href="#Binary-Search-Tree-(BST)">&#182;</a></h5><p>In-order traversal of a BST will give you all elements in order. <br></p>
+<p><b>Use recursion</b>: Used when a subtree problem can solve entire problem. Always check for base case (null node) <br>
+<b>Traverse by Level</b>: Use breadth-first search</p>
 
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[23]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span> 
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Node class</span>
+<span class="k">class</span> <span class="nc">Node</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span> <span class="c1">#nodes have a value with a left and right node pointer</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">left</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">right</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">val</span> <span class="o">=</span> <span class="n">key</span>
+    
+<span class="k">def</span> <span class="nf">inorder</span><span class="p">(</span><span class="n">root</span><span class="p">):</span> <span class="c1"># Left -&gt; Root -&gt; Right (INORDER means root in middle, LRtR)</span>
+    <span class="k">if</span> <span class="n">root</span><span class="p">:</span>
+        <span class="n">inorder</span><span class="p">(</span><span class="n">root</span><span class="o">.</span><span class="n">left</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">root</span><span class="o">.</span><span class="n">val</span><span class="p">)</span>
+        <span class="n">inorder</span><span class="p">(</span><span class="n">root</span><span class="o">.</span><span class="n">right</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">preorder</span><span class="p">(</span><span class="n">root</span><span class="p">):</span> <span class="c1"># Root -&gt; Left -&gt; Right (PRE means Root first, RtLR)</span>
+    <span class="k">if</span> <span class="n">root</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">root</span><span class="o">.</span><span class="n">val</span><span class="p">)</span>
+        <span class="n">preorder</span><span class="p">(</span><span class="n">root</span><span class="o">.</span><span class="n">left</span><span class="p">)</span>
+        <span class="n">preorder</span><span class="p">(</span><span class="n">root</span><span class="o">.</span><span class="n">right</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">postorder</span><span class="p">(</span><span class="n">root</span><span class="p">):</span> <span class="c1"># Left -&gt; Right -&gt; Root (POST means Root last, LRRt)</span>
+    <span class="k">if</span> <span class="n">root</span><span class="p">:</span>
+        <span class="n">postorder</span><span class="p">(</span><span class="n">root</span><span class="o">.</span><span class="n">left</span><span class="p">)</span>
+        <span class="n">postorder</span><span class="p">(</span><span class="n">root</span><span class="o">.</span><span class="n">right</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">root</span><span class="o">.</span><span class="n">val</span><span class="p">)</span>
+
+            
+<span class="c1"># Initialize a tree</span>
+<span class="n">root</span> <span class="o">=</span> <span class="n">Node</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">root</span><span class="o">.</span><span class="n">left</span> <span class="o">=</span> <span class="n">Node</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">root</span><span class="o">.</span><span class="n">right</span> <span class="o">=</span> <span class="n">Node</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">root</span><span class="o">.</span><span class="n">left</span><span class="o">.</span><span class="n">left</span> <span class="o">=</span> <span class="n">Node</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+<span class="n">root</span><span class="o">.</span><span class="n">left</span><span class="o">.</span><span class="n">right</span> <span class="o">=</span> <span class="n">Node</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+<span class="n">root</span><span class="o">.</span><span class="n">right</span><span class="o">.</span><span class="n">left</span> <span class="o">=</span> <span class="n">Node</span><span class="p">(</span><span class="mi">6</span><span class="p">)</span>
+<span class="n">root</span><span class="o">.</span><span class="n">right</span><span class="o">.</span><span class="n">right</span> <span class="o">=</span> <span class="n">Node</span><span class="p">(</span><span class="mi">7</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Preorder traversal (Rt L R)&quot;</span><span class="p">)</span> 
+<span class="n">preorder</span><span class="p">(</span><span class="n">root</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Inorder traversal (L Rt R)&quot;</span><span class="p">)</span>
+<span class="n">inorder</span><span class="p">(</span><span class="n">root</span><span class="p">)</span> 
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Postorder traversal (L R Rt)&quot;</span><span class="p">)</span> 
+<span class="n">postorder</span><span class="p">(</span><span class="n">root</span><span class="p">)</span>
 </pre></div>
 
      </div>
 </div>
 </div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+
+
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
+<pre>Preorder traversal (Rt L R)
+1
+2
+4
+5
+3
+6
+7
+
+Inorder traversal (L Rt R)
+4
+2
+5
+1
+6
+3
+7
+
+Postorder traversal (L R Rt)
+4
+5
+2
+6
+7
+3
+1
+</pre>
+</div>
+</div>
+
+</div>
+
 </div>
 
 </div>
@@ -14930,24 +15029,139 @@ Transposed 4x3: [(1, -5, -7), (4, 8, 1), (5, 9, 2), (6, 3, 0)]
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <hr>
 <h1 id="Graph">Graph<a class="anchor-link" href="#Graph">&#182;</a></h1><p><a href="https://www.techinterviewhandbook.org/algorithms/graph/">https://www.techinterviewhandbook.org/algorithms/graph/</a> <br><br></p>
+<p>A graph is a structure containing a set of objects (nodes or vertices) where there can be edges between these nodes/vertices. Edges can be directed or undirected and can optionally have values (a weighted graph). Trees are undirected graphs in which any two vertices are connected by exactly one edge and there can be no cycles in the graph. <br><br>
+graphs are commonly given in the input as 2D matrices where cells are the nodes and each cell can traverse to its adjacent cells (up/down/left/right) <br>
+|V| is the number of vertices while |E| is the number of edges.<br></p>
+<p><b>Graph Algos</b><br>
+<b>Common:</b> Breadth-first Search (BFS), Depth-first Search (DFS)<br>
+<b>Uncommon:</b> Topological Sort, Dijkstra's Algorithm<br></p>
+<p><b>BFS: </b>graph traversal algorithm which starts at a node and explores all nodes at the present depth, before moving on to the nodes at the next depth level.<br>
+Typically uses a <b>queue</b> to track visited nodes. Use double ended queues (deques in python) to get O(1) enqueueing. <br></p>
+<p><b>DFS: </b>graph traversal algorithm which explores as far as possible along each branch before backtracking.<br>
+A <b>stack</b> is used to keep track of the nodes that are on the current search path. Either by an implicit recursion stack, or an actual stack data structure. <br></p>
+<p><b>Topological Sort: </b>a linear ordering of its vertices such that for every directed edge uv from vertex u to vertex v, u comes before v in the ordering. Precisely, a topological sort is a graph traversal in which each node v is visited only after all its dependencies are visited.<br>
+Topological sorting is most commonly used for <b>job scheduling</b> a sequence of jobs or tasks which has dependencies on other jobs/tasks. The jobs are represented by vertices, and there is an edge from x to y if job x must be completed before job y can be started.<br></p>
 
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[31]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span> 
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">deque</span>
+
+<span class="c1">#BREADTH FIRST SEARCH IMPLEMENTATION</span>
+<span class="k">def</span> <span class="nf">bfs</span><span class="p">(</span><span class="n">matrix</span><span class="p">):</span>
+  <span class="k">if</span> <span class="ow">not</span> <span class="n">matrix</span><span class="p">:</span>
+    <span class="k">return</span> <span class="p">[]</span>
+
+  <span class="n">rows</span><span class="p">,</span> <span class="n">cols</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">matrix</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">matrix</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+  <span class="n">visited</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+  <span class="n">directions</span> <span class="o">=</span> <span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
+
+  <span class="k">def</span> <span class="nf">traverse</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">):</span>
+    <span class="n">queue</span> <span class="o">=</span> <span class="n">deque</span><span class="p">([(</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">)])</span>
+    <span class="k">while</span> <span class="n">queue</span><span class="p">:</span>
+      <span class="n">curr_i</span><span class="p">,</span> <span class="n">curr_j</span> <span class="o">=</span> <span class="n">queue</span><span class="o">.</span><span class="n">popleft</span><span class="p">()</span>
+      <span class="k">if</span> <span class="p">(</span><span class="n">curr_i</span><span class="p">,</span> <span class="n">curr_j</span><span class="p">)</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">visited</span><span class="p">:</span>
+        <span class="n">visited</span><span class="o">.</span><span class="n">add</span><span class="p">((</span><span class="n">curr_i</span><span class="p">,</span> <span class="n">curr_j</span><span class="p">))</span>
+        <span class="c1"># Traverse neighbors.</span>
+        <span class="k">for</span> <span class="n">direction</span> <span class="ow">in</span> <span class="n">directions</span><span class="p">:</span>
+          <span class="n">next_i</span><span class="p">,</span> <span class="n">next_j</span> <span class="o">=</span> <span class="n">curr_i</span> <span class="o">+</span> <span class="n">direction</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">curr_j</span> <span class="o">+</span> <span class="n">direction</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+          <span class="k">if</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">next_i</span> <span class="o">&lt;</span> <span class="n">rows</span> <span class="ow">and</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">next_j</span> <span class="o">&lt;</span> <span class="n">cols</span><span class="p">:</span>
+            <span class="c1"># Add in question-specific checks, where relevant.</span>
+            <span class="n">queue</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">next_i</span><span class="p">,</span> <span class="n">next_j</span><span class="p">))</span>
+
+  <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">rows</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">cols</span><span class="p">):</span>
+      <span class="n">traverse</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">)</span>
+    
+    
+<span class="c1">#DEPTH FIRST SEARCH IMPLEMENTATION</span>
+<span class="k">def</span> <span class="nf">dfs</span><span class="p">(</span><span class="n">matrix</span><span class="p">):</span>
+  <span class="k">if</span> <span class="ow">not</span> <span class="n">matrix</span><span class="p">:</span>
+    <span class="k">return</span> <span class="p">[]</span>
+
+  <span class="n">rows</span><span class="p">,</span> <span class="n">cols</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">matrix</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">matrix</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+  <span class="n">visited</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+  <span class="n">directions</span> <span class="o">=</span> <span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
+
+  <span class="k">def</span> <span class="nf">traverse</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">):</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">)</span> <span class="ow">in</span> <span class="n">visited</span><span class="p">:</span>
+      <span class="k">return</span>
+
+    <span class="n">visited</span><span class="o">.</span><span class="n">add</span><span class="p">((</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">))</span>
+    <span class="c1"># Traverse neighbors.</span>
+    <span class="k">for</span> <span class="n">direction</span> <span class="ow">in</span> <span class="n">directions</span><span class="p">:</span>
+      <span class="n">next_i</span><span class="p">,</span> <span class="n">next_j</span> <span class="o">=</span> <span class="n">i</span> <span class="o">+</span> <span class="n">direction</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">j</span> <span class="o">+</span> <span class="n">direction</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+      <span class="k">if</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">next_i</span> <span class="o">&lt;</span> <span class="n">rows</span> <span class="ow">and</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">next_j</span> <span class="o">&lt;</span> <span class="n">cols</span><span class="p">:</span>
+        <span class="c1"># Add in question-specific checks, where relevant.</span>
+        <span class="n">traverse</span><span class="p">(</span><span class="n">next_i</span><span class="p">,</span> <span class="n">next_j</span><span class="p">)</span>
+
+  <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">rows</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">cols</span><span class="p">):</span>
+      <span class="n">traverse</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">)</span>
+
+<span class="c1">#TOPOLOGICAL SORT IMPLEMENTATION</span>
+<span class="k">def</span> <span class="nf">graph_topo_sort</span><span class="p">(</span><span class="n">num_nodes</span><span class="p">,</span> <span class="n">edges</span><span class="p">):</span>
+    <span class="n">nodes</span><span class="p">,</span> <span class="n">order</span><span class="p">,</span> <span class="n">queue</span> <span class="o">=</span> <span class="p">{},</span> <span class="p">[],</span> <span class="n">deque</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">node_id</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_nodes</span><span class="p">):</span>
+        <span class="n">nodes</span><span class="p">[</span><span class="n">node_id</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span> <span class="s1">&#39;in&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;out&#39;</span><span class="p">:</span> <span class="nb">set</span><span class="p">()</span> <span class="p">}</span>
+    <span class="k">for</span> <span class="n">node_id</span><span class="p">,</span> <span class="n">pre_id</span> <span class="ow">in</span> <span class="n">edges</span><span class="p">:</span>
+        <span class="n">nodes</span><span class="p">[</span><span class="n">node_id</span><span class="p">][</span><span class="s1">&#39;in&#39;</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="n">nodes</span><span class="p">[</span><span class="n">pre_id</span><span class="p">][</span><span class="s1">&#39;out&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">node_id</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">node_id</span> <span class="ow">in</span> <span class="n">nodes</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+        <span class="k">if</span> <span class="n">nodes</span><span class="p">[</span><span class="n">node_id</span><span class="p">][</span><span class="s1">&#39;in&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">queue</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">node_id</span><span class="p">)</span>
+    <span class="k">while</span> <span class="nb">len</span><span class="p">(</span><span class="n">queue</span><span class="p">):</span>
+        <span class="n">node_id</span> <span class="o">=</span> <span class="n">queue</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">outgoing_id</span> <span class="ow">in</span> <span class="n">nodes</span><span class="p">[</span><span class="n">node_id</span><span class="p">][</span><span class="s1">&#39;out&#39;</span><span class="p">]:</span>
+            <span class="n">nodes</span><span class="p">[</span><span class="n">outgoing_id</span><span class="p">][</span><span class="s1">&#39;in&#39;</span><span class="p">]</span> <span class="o">-=</span> <span class="mi">1</span>
+            <span class="k">if</span> <span class="n">nodes</span><span class="p">[</span><span class="n">outgoing_id</span><span class="p">][</span><span class="s1">&#39;in&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">queue</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">outgoing_id</span><span class="p">)</span>
+        <span class="n">order</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">node_id</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">order</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">order</span><span class="p">)</span> <span class="o">==</span> <span class="n">num_nodes</span> <span class="k">else</span> <span class="kc">None</span>
+
+
+<span class="n">matrix</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">],</span> 
+         <span class="p">[</span><span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span>
+         <span class="p">[</span><span class="o">-</span><span class="mi">7</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">]]</span> <span class="c1">#a 3 by 4 matrix</span>
+<span class="n">bfs</span><span class="p">(</span><span class="n">matrix</span><span class="p">)</span>
+<span class="n">dfs</span><span class="p">(</span><span class="n">matrix</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Topological Sort:&#39;</span><span class="p">,</span> <span class="n">graph_topo_sort</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="p">[[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">0</span><span class="p">]]))</span>
 </pre></div>
 
      </div>
 </div>
 </div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+
+
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
+<pre>Topological Sort: [1, 2, 0, 3]
+</pre>
+</div>
+</div>
+
+</div>
+
 </div>
 
 </div>
@@ -14958,7 +15172,7 @@ Transposed 4x3: [(1, -5, -7), (4, 8, 1), (5, 9, 2), (6, 3, 0)]
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <hr>
-<h1 id="Hash-Table//-Hash-Map">Hash Table// Hash Map<a class="anchor-link" href="#Hash-Table//-Hash-Map">&#182;</a></h1><p><a href="https://www.techinterviewhandbook.org/algorithms/hash-table/">https://www.techinterviewhandbook.org/algorithms/hash-table/</a> <br><br>
+<h1 id="Hash-Table-//-Hash-Map">Hash Table // Hash Map<a class="anchor-link" href="#Hash-Table-//-Hash-Map">&#182;</a></h1><p><a href="https://www.techinterviewhandbook.org/algorithms/hash-table/">https://www.techinterviewhandbook.org/algorithms/hash-table/</a> <br><br>
 Key, value pairs. Hash function to compute index and place in array. Easy index lookup gives O(1) Search, Insert, AND Remove<br>
 Hash collisions: Resolved using Seperate Chaining (Linked List for each value) or Open Addressing (Next unoccupied slot)</p>
 
