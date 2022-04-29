@@ -15769,6 +15769,157 @@ An example interval array: [[1, 2], [4, 7]]. Questions can be tricky because of 
 </div>
 
 </div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<hr>
+<h1 id="Dynamic-Programming">Dynamic Programming<a class="anchor-link" href="#Dynamic-Programming">&#182;</a></h1><p><a href="https://www.techinterviewhandbook.org/algorithms/dynamic-programming/">https://www.techinterviewhandbook.org/algorithms/dynamic-programming/</a><br>
+<a href="https://leetcode.com/explore/learn/card/dynamic-programming/">https://leetcode.com/explore/learn/card/dynamic-programming/</a><br><br></p>
+<h3 id="Framework-for-DP-problems">Framework for DP problems<a class="anchor-link" href="#Framework-for-DP-problems">&#182;</a></h3><ol>
+<li>Identify a "state" (a set of variables that can sufficiently describe a scenario. ONLY  relevant ones)
+To further solve a DP problem after identifying state, we combine 3 things</li>
+<li>A function or data structure that will compute/contain the answer to the problem for every given state.</li>
+<li>A recurrence relation (an equation that relates different states with each other) to transition between states.</li>
+<li>Base cases, so that our recurrence relation doesn't go on infinitely.</li>
+</ol>
+<h4 id="Framework-Applied-to-Climbing-Stairs">Framework Applied to Climbing Stairs<a class="anchor-link" href="#Framework-Applied-to-Climbing-Stairs">&#182;</a></h4><p>'Climbing Stairs' LC Easy problem #70</p>
+<ol>
+<li>Only 1 relevant state variable, the current step. We will use 'i'. If i=6, then we are on step 6. Every unique of 'i' is a unique state.</li>
+<li>We will use a function dp where dp(i) returns the # of ways to climb to the ith step. As easy as 'return dp(n)'. As for data structures, top-down is typically implemented with a recursive function and hash map, wherease bottom-up is implemented with nested for loops and an array.</li>
+<li>To get to the 30th stair, we need to know the number of ways to get to the 28th + the number of ways to get to the 29th. This logic can define the recurrence relation as dp(i) = dp(i-1) + dp(i-2). For 'Climbing Stairs' the relation is the fibonacci sequence. Typically this relation is much more complicated and finding it is the most difficult part of solving the problem.</li>
+<li>To find base cases, ask yourself "What states can I find the answer without DP?" If we can only take 1 or 2 steps, then the base cases are dp(1) = 1 and dp(2) = 2. All other cases can be simplified to these eventual bases.</li>
+</ol>
+<h4 id="Framework-Applied-to-House-Robber">Framework Applied to House Robber<a class="anchor-link" href="#Framework-Applied-to-House-Robber">&#182;</a></h4><p>'House Robber' LC Medium Problem #198</p>
+<ol>
+<li>'i' is the current house index and only relevant state.</li>
+<li>With one state variable and a top-down approach we can use dp(i). Where dp returns the maximum amount of money you can rob up to house 'i' while not triggering the police. A hash map (HouseIndex, totalRobbed) for memoization. Calling dp() on the arr length - 1 will provide the overall problem solution.</li>
+<li>The reccurence relation is dp(i) = max(dp(i-1),dp(i-2)+nums[i]). This formula uses whichever is larger, robbing the previous house or robbing this one.</li>
+<li>If we only have one house, we rob it. If we have two, we rob the richer. dp(0) = nums[0] and dp(1) = max(nums[0], nums[1])</li>
+</ol>
+<h4 id="Framework-Applied-to-Min-Cost-Climbing-Stairs">Framework Applied to Min Cost Climbing Stairs<a class="anchor-link" href="#Framework-Applied-to-Min-Cost-Climbing-Stairs">&#182;</a></h4><ol>
+<li>'i' the current step, is the only relevant state variable.</li>
+<li>dp(i) will return the min cost to reach that step. Memoization with hash map.</li>
+<li>Recurrence: dp(i) = cost[i] + min(dp(i-1), dp(i-2)). We want the minimum cost to get to the current step taking 1 or 2 stairs per step.</li>
+<li>Base cases: dp(0) = cost[0], dp(1) = cost[1].</li>
+</ol>
+
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[26]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#Climbing Stairs</span>
+<span class="k">def</span> <span class="nf">climbStairs</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">dp</span><span class="p">(</span><span class="n">i</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">i</span><span class="o">&lt;=</span><span class="mi">2</span><span class="p">:</span> <span class="c1">#Base case</span>
+            <span class="k">return</span> <span class="n">i</span>
+        <span class="k">if</span> <span class="n">i</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">memo</span><span class="p">:</span> <span class="c1">#Memoization</span>
+            <span class="n">memo</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">dp</span><span class="p">(</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="n">dp</span><span class="p">(</span><span class="n">i</span><span class="o">-</span><span class="mi">2</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">memo</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+    
+    <span class="n">memo</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">return</span> <span class="n">dp</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+
+<span class="c1">#House Robber</span>
+<span class="k">def</span> <span class="nf">rob</span><span class="p">(</span><span class="n">nums</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">dp</span><span class="p">(</span><span class="n">i</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">nums</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="k">return</span> <span class="nb">max</span><span class="p">(</span><span class="n">nums</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">nums</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+        <span class="k">if</span> <span class="n">i</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">memo</span><span class="p">:</span>
+            <span class="n">memo</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">dp</span><span class="p">(</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">),</span> <span class="n">dp</span><span class="p">(</span><span class="n">i</span><span class="o">-</span><span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="n">nums</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+        <span class="k">return</span> <span class="n">memo</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+    <span class="n">memo</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">return</span> <span class="n">dp</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">nums</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="c1">#Min Cost Climbing Stairs</span>
+<span class="k">def</span> <span class="nf">minCostClimbingStairs</span><span class="p">(</span><span class="n">cost</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">dp</span><span class="p">(</span><span class="n">i</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">:</span> <span class="c1">#Base cases</span>
+            <span class="k">return</span> <span class="n">cost</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">i</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">memo</span><span class="p">:</span> <span class="c1">#Recurrence</span>
+            <span class="n">memo</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">cost</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="nb">min</span><span class="p">(</span><span class="n">dp</span><span class="p">(</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">),</span> <span class="n">dp</span><span class="p">(</span><span class="n">i</span><span class="o">-</span><span class="mi">2</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">memo</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+
+    <span class="n">memo</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">end</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">cost</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span>
+    <span class="k">return</span> <span class="nb">min</span><span class="p">(</span><span class="n">dp</span><span class="p">(</span><span class="n">end</span><span class="p">),</span> <span class="n">dp</span><span class="p">(</span><span class="n">end</span><span class="o">-</span><span class="mi">1</span><span class="p">))</span> <span class="c1">#The &#39;top&#39; of stairs is above final index. Return min of final step and final-1.</span>
+
+<span class="c1">#Maximal Square</span>
+<span class="k">def</span> <span class="nf">maximalSquare</span><span class="p">(</span><span class="n">matrix</span><span class="p">):</span>
+    <span class="n">rows</span><span class="p">,</span> <span class="n">cols</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">matrix</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">matrix</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="n">cache</span> <span class="o">=</span> <span class="p">{}</span> <span class="c1">#(r,c) -&gt; maxSideLength</span>
+
+    <span class="c1"># T: O(m*n)</span>
+    <span class="c1"># M: O(m*n)</span>
+    <span class="k">def</span> <span class="nf">helper</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">c</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">r</span> <span class="o">&gt;=</span> <span class="n">rows</span> <span class="ow">or</span> <span class="n">c</span> <span class="o">&gt;=</span> <span class="n">cols</span><span class="p">:</span>
+            <span class="k">return</span> <span class="mi">0</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">c</span><span class="p">)</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">cache</span><span class="p">:</span>
+            <span class="n">down</span> <span class="o">=</span> <span class="n">helper</span><span class="p">(</span><span class="n">r</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">c</span><span class="p">)</span>
+            <span class="n">right</span> <span class="o">=</span> <span class="n">helper</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">c</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+            <span class="n">diag</span> <span class="o">=</span> <span class="n">helper</span><span class="p">(</span><span class="n">r</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">c</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+
+            <span class="n">cache</span><span class="p">[(</span><span class="n">r</span><span class="p">,</span><span class="n">c</span><span class="p">)]</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="k">if</span> <span class="n">matrix</span><span class="p">[</span><span class="n">r</span><span class="p">][</span><span class="n">c</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;1&#39;</span><span class="p">:</span>
+                <span class="n">cache</span><span class="p">[(</span><span class="n">r</span><span class="p">,</span><span class="n">c</span><span class="p">)]</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">+</span> <span class="nb">min</span><span class="p">(</span><span class="n">down</span><span class="p">,</span> <span class="n">right</span><span class="p">,</span> <span class="n">diag</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">cache</span><span class="p">[(</span><span class="n">r</span><span class="p">,</span><span class="n">c</span><span class="p">)]</span>
+
+    <span class="n">helper</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="k">return</span> <span class="nb">max</span><span class="p">(</span><span class="n">cache</span><span class="o">.</span><span class="n">values</span><span class="p">())</span> <span class="o">**</span> <span class="mi">2</span>
+
+
+<span class="n">nums</span> <span class="o">=</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="mi">7</span><span class="p">,</span><span class="mi">9</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">31</span><span class="p">,</span><span class="mi">15</span><span class="p">]</span>
+<span class="n">matrix</span> <span class="o">=</span> <span class="p">[[</span><span class="s2">&quot;1&quot;</span><span class="p">,</span><span class="s2">&quot;1&quot;</span><span class="p">,</span><span class="s2">&quot;1&quot;</span><span class="p">,</span><span class="s2">&quot;0&quot;</span><span class="p">,</span><span class="s2">&quot;0&quot;</span><span class="p">],[</span><span class="s2">&quot;1&quot;</span><span class="p">,</span><span class="s2">&quot;1&quot;</span><span class="p">,</span><span class="s2">&quot;1&quot;</span><span class="p">,</span><span class="s2">&quot;1&quot;</span><span class="p">,</span><span class="s2">&quot;1&quot;</span><span class="p">],[</span><span class="s2">&quot;1&quot;</span><span class="p">,</span><span class="s2">&quot;1&quot;</span><span class="p">,</span><span class="s2">&quot;1&quot;</span><span class="p">,</span><span class="s2">&quot;1&quot;</span><span class="p">,</span><span class="s2">&quot;1&quot;</span><span class="p">],[</span><span class="s2">&quot;1&quot;</span><span class="p">,</span><span class="s2">&quot;0&quot;</span><span class="p">,</span><span class="s2">&quot;0&quot;</span><span class="p">,</span><span class="s2">&quot;1&quot;</span><span class="p">,</span><span class="s2">&quot;0&quot;</span><span class="p">]]</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Number of ways to climb 30 stairs:&#39;</span><span class="p">,</span> <span class="n">climbStairs</span><span class="p">(</span><span class="mi">30</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Max Money Robbing&#39;</span><span class="p">,</span> <span class="n">nums</span><span class="p">,</span> <span class="s1">&#39;: $&#39;</span><span class="p">,</span> <span class="n">rob</span><span class="p">(</span><span class="n">nums</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Min Cost Climbing&#39;</span><span class="p">,</span> <span class="n">nums</span><span class="p">,</span> <span class="s1">&#39;:&#39;</span><span class="p">,</span> <span class="n">minCostClimbingStairs</span><span class="p">(</span><span class="n">nums</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Maximal Square of matrix:&#39;</span><span class="p">,</span> <span class="n">maximalSquare</span><span class="p">(</span><span class="n">matrix</span><span class="p">))</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+
+
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
+<pre>Number of ways to climb 30 stairs: 1346269
+Max Money Robbing [2, 7, 9, 3, 1, 6, 31, 15] : $ 43
+Min Cost Climbing [2, 7, 9, 3, 1, 6, 31, 15] : 31
+Maximal Square of matrix: 9
+</pre>
+</div>
+</div>
+
+</div>
+
+</div>
+
+</div>
 </body>
 
 
